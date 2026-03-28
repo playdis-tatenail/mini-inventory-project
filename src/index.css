@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  
+  --main-bg: #ffffff; 
+}
+
+body {
+  margin: 0;
+  background-color: var(--main-bg);
+  font-family: 'Inter', -apple-system, sans-serif; 
+  color: #1e293b;
+}
+/* ...ส่วน scrollbar คงไว้ตามเดิมได้เลยครับ... */
+
+/* ตกแต่ง Scrollbar  */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #97ABC8;
+}
