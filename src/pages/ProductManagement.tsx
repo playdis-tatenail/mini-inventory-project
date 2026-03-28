@@ -79,10 +79,15 @@ const ProductManagement = ({ inventory }: Props) => {
           <input
             type="number"
             placeholder="0"
+            min="0" // ป้องกันการกดลูกศรลงให้ติดลบในบาง Browser
             className="border p-2 rounded w-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-          />
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              // เช็กว่าถ้าค่าที่พิมพ์เข้ามาน้อยกว่า 0 ให้เซตเป็น 0 แทน
+              setQuantity(val < 0 ? 0 : val);
+            }}
+            />
         </div>
 
         {/* ปุ่ม */}
