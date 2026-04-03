@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
     "@prisma/client": "^7.6.0",
     "elysia": "^1.4.28",
     "react": "^19.2.4",

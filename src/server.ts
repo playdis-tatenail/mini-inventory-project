@@ -1,37 +1,42 @@
 import { Elysia, t } from 'elysia'
 import { PrismaClient } from "@prisma/client"
+import { cors } from "@elysiajs/cors"
+import * as dotenv from 'dotenv'
 
-const prisma = new PrismaClient(
-  
-)
+dotenv.config()
+
+// กลับมาใช้แบบมาตรฐาน ไม่ต้อง Hard-code URL แล้ว!
+const prisma = new PrismaClient()
+
+const PORT = Number(process.env.PORT ?? 3000);
 
 const app = new Elysia()
+  .use(cors())
   .get('/inventory', async ({ query }) => {
-    // 1. ตรวจสอบเงื่อนไขสินค้าใกล้หมดสต็อก [cite: 187, 198]
     const isLowStock = query.low_stock === 'true'
-
-    // 2. กำหนด Sorting [cite: 188, 201]
-    // ใช้ค่าจาก query ตรงๆ ได้เลยเพราะเราจะทำ Validation ที่ Schema ด้านล่างแล้ว
-    const sortBy = query.sortBy || 'name'
-    const sortOrder = query.order || 'asc'
-
     return await prisma.product.findMany({
-      where: isLowStock 
-        ? { quantity: { lte: 10 } } // กรอง quantity <= 10 [cite: 198]
-        : {},
-      orderBy: {
-        [sortBy]: sortOrder,
+      where: isLowStock ? { quantity: { lte: 10 } } : {},
+      orderBy: { name: 'asc' }
+    })
+  })
+  .post('/inventory', async ({ body }) => {
+    return await prisma.product.create({
+      data: {
+        name: body.name,
+        sku: body.sku,
+        zone: body.zone,
+        quantity: Number(body.quantity)
       }
     })
   }, {
-    // 3. Built-in Validation: ใช้เกราะป้องกันข้อมูล (TypeBox) [cite: 74, 75]
-    query: t.Object({
-      low_stock: t.Optional(t.String()),
-      // จำกัดให้เลือกได้เฉพาะ field ที่เราอนุญาตเท่านั้น
-      sortBy: t.Optional(t.Union([t.Literal('name'), t.Literal('quantity')])),
-      order: t.Optional(t.Union([t.Literal('asc'), t.Literal('desc')]))
+    body: t.Object({
+      name: t.String({ minLength: 1 }),
+      sku: t.String({ minLength: 1 }),
+      zone: t.String({ minLength: 1 }),
+      quantity: t.Optional(t.Numeric({ default: 0 }))
     })
   })
-  .listen(3000)
+  .listen(PORT);
 
-console.log(`🦊 Server is running at http://localhost:3000`)
+console.log(`🚀 Server is running at http://localhost:${PORT}`);
+export type App = typeof app;
