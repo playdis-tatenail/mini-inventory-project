@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@prisma/client": "^7.6.0",
+    "elysia": "^1.4.28",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.2"
@@ -20,7 +22,8 @@
     "@rolldown/plugin-babel": "^0.2.1",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/babel__core": "^7.20.5",
-    "@types/node": "^24.12.0",
+    "@types/bun": "latest",
+    "@types/node": "^25.5.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
@@ -31,6 +34,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
     "postcss": "^8.5.8",
+    "prisma": "^7.6.0",
     "tailwindcss": "^4.2.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.0",
