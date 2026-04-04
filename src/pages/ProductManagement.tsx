@@ -21,14 +21,15 @@ const ProductManagement = ({ inventory }: Props) => {
   const [sku, setSku] = useState('');
   const [zone, setZone] = useState('');
   const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !sku.trim() || !zone.trim()) {
       return alert('กรุณากรอกชื่อสินค้า, SKU และโซนให้ครบถ้วน');
     }
-    addProduct(name.trim(), sku.trim(), zone.trim(), quantity);
-    setName(''); setSku(''); setZone(''); setQuantity(0);
+    addProduct(name.trim(), sku.trim(), zone.trim(), quantity, price);
+    setName(''); setSku(''); setZone(''); setQuantity(0); setPrice(0);
   };
 
   return (
@@ -82,6 +83,23 @@ const ProductManagement = ({ inventory }: Props) => {
             className="border p-2 rounded w-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={zone}
             onChange={(e) => setZone(e.target.value)}
+          />
+        </div>
+
+        {/* ราคา */}
+        <div className="flex flex-col">
+          <label className="text-sm text-slate-600 mb-1">ราคา (บาท)</label>
+          <input
+            type="number"
+            placeholder="0"
+            min="0"
+            className="border p-2 rounded w-28 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={price === 0 ? '' : price}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val === '') { setPrice(0); }
+              else { const num = Number(val); setPrice(num < 0 ? 0 : num); }
+            }}
           />
         </div>
 
@@ -147,7 +165,8 @@ const ProductManagement = ({ inventory }: Props) => {
               </div>
 
               <p className="text-gray-400 text-sm mb-0.5">SKU: {product.sku}</p>
-              <p className="text-gray-400 text-sm mb-3">โซน: {product.zone}</p>
+              <p className="text-gray-400 text-sm mb-0.5">โซน: {product.zone}</p>
+              <p className="text-gray-400 text-sm mb-3">ราคา: {product.price.toLocaleString()} บาท</p>
 
               {/* ปุ่มปรับจำนวน */}
               <div className="flex items-center justify-between my-4 bg-gray-50 p-2 rounded-lg">

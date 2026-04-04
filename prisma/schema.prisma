@@ -12,4 +12,5 @@ model Product {
   sku      String @unique
   quantity Int
   zone     String
+  price    Int
 }

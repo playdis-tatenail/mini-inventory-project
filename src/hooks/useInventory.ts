@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { Product } from '../types';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://glowing-space-fishstick-69wjqj99gw6xcwpx-3000.app.github.dev';
 
 export const useInventory = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -30,12 +30,13 @@ export const useInventory = () => {
   }, []);
 
   // เพิ่มสินค้าใหม่ (POST)
-  const addProduct = async (name: string, sku: string, zone: string, quantity: number) => {
+  const addProduct = async (name: string, sku: string, zone: string, quantity: number, price: number) => {
     try {
       const res = await fetch(`${API_URL}/inventory`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, sku, zone, quantity }),
+        // ส่งข้อมูลครบ 5 ฟิลด์ไปยัง Backend
+        body: JSON.stringify({ name, sku, zone, quantity, price }),
       });
       if (!res.ok) {
         const errData = await res.json();

@@ -9,14 +9,15 @@ POST http://localhost:3000/inventory
 Content-Type: application/json
 
 {
-  "name": "Coca-Cola",
-  "sku": "CC-001",
+  "name": "BB-001",
+  "sku": "CC-002",
   "zone": "A1",
-  "quantity": 50
+  "quantity": 50,
+  "price": 50
 }
 
 ### Lab 3 - เบิกของออก
-PATCH http://localhost:3000/inventory/1b33aea9-36f0-4da4-9f6f-5a13a3c4e169/adjust
+PATCH http://localhost:3000/inventory/8967a3bb-e9c3-4ce5-b0b5-b45c4d9c5771/adjust
 Content-Type: application/json
 
 {
@@ -24,4 +25,4 @@ Content-Type: application/json
 }
 
 ### Lab 4 - ลบสินค้า (ต้องให้ quantity = 0 ก่อน)
-DELETE http://localhost:3000/inventory/1b33aea9-36f0-4da4-9f6f-5a13a3c4e169
+DELETE http://localhost:3000/inventory/8967a3bb-e9c3-4ce5-b0b5-b45c4d9c5771

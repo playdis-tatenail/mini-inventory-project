@@ -4,4 +4,5 @@ export interface Product {
   sku: string;
   quantity: number;
   zone: string;
+  price: number;
 }
