@@ -42,7 +42,7 @@ function App() {
         <main className="max-w-6xl mx-auto py-8">
           <Routes>
             {/* ส่ง products ไปให้ Dashboard คำนวณผลสรุป */}
-            <Route path="/" element={<Dashboard products={inventory.products} />} />
+            <Route path="/" element={<Dashboard products={inventory.products} loading={inventory.loading} error={inventory.error} />} />
             
             {/* ส่ง inventory (ทั้งก้อนที่มีฟังก์ชัน) ไปให้หน้าจัดการ */}
             <Route path="/products" element={<ProductManagement inventory={inventory} />} />

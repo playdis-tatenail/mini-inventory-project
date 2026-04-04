@@ -1,0 +1,27 @@
+### Lab 1 - ดึงสินค้าทั้งหมด
+GET http://localhost:3000/inventory
+
+### Lab 1 - ดึงสินค้าใกล้หมด
+GET http://localhost:3000/inventory?low_stock=true
+
+### Lab 2 - เพิ่มสินค้า
+POST http://localhost:3000/inventory
+Content-Type: application/json
+
+{
+  "name": "Coca-Cola",
+  "sku": "CC-001",
+  "zone": "A1",
+  "quantity": 50
+}
+
+### Lab 3 - เบิกของออก
+PATCH http://localhost:3000/inventory/1b33aea9-36f0-4da4-9f6f-5a13a3c4e169/adjust
+Content-Type: application/json
+
+{
+  "change": -5
+}
+
+### Lab 4 - ลบสินค้า (ต้องให้ quantity = 0 ก่อน)
+DELETE http://localhost:3000/inventory/1b33aea9-36f0-4da4-9f6f-5a13a3c4e169

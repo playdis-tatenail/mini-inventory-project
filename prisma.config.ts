@@ -1,12 +1,12 @@
-import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from 'prisma/config'
+import { PrismaPg } from '@prisma/adapter-pg'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 export default defineConfig({
-  schema: "prisma/schema.prisma",
-  migrations: {
-    path: "prisma/migrations",
-  },
+  schema: './prisma/schema.prisma',
   datasource: {
-    url: env("DIRECT_URL"), // Prisma 7 จะดึงค่าจาก .env มาให้เอง
+    url: process.env.DATABASE_URL!,   // เพิ่มตรงนี้
   },
-});
+})
